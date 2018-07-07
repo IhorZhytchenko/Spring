@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+
+
+<div th:replace="fragments/menu.html :: top-menu"/>
+
+<div class="w3-container w3-margin">
+
+
+    <div class="w3-container w3-purple">
+        <h3>Products</h3>
+    </div>
+
+    <div style="height: 24px;"></div>
+    <table class="w3-table w3-striped w3-bordered">
+        <div th:each="product : ${products}" class="w3-container">
+            <tr>
+                <td><h3 th:text="${product.name}">Name</h3>
+                    <h5 th:text="'Price - ' + ${product.price}">Price</h5>
+                    <h5 th:text="'Producer - ' + ${product.producer.name}">Producer</h5>
+                </td>
+                <td><a th:href="'/product/delete?id=' + ${product.id}" href="#" class="w3-button w3-red">Delete</a></td>
+                <td><a th:href="'/product/edit?id=' + ${product.id}" href="#" class="w3-button w3-orange w3-margin-left">Edit</a></td>
+            </tr>
+        </div>
+    </table>
+    <div style="height: 24px;"></div>
+    <div class="w3-container">
+        <a class="w3-button w3-right  w3-purple w3-large" href="/product/add">Add product</a>
+    </div>
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd ">
+
+    <changeSet id="init role 1" author="igor.zhytchenko@gmail.com">
+        <insert tableName="role">
+            <column name="id" value="1">
+            </column>
+            <column name="role" value="USER">
+            </column>
+        </insert>
+        <rollback>
+            DELETE FROM role WHERE id = 1;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init role 2" author="igor.zhytchenko@gmail.com">
+        <insert tableName="role">
+            <column name="id" value="2">
+            </column>
+            <column name="role" value="ADMIN">
+            </column>
+        </insert>
+        <rollback>
+            DELETE FROM role WHERE id = 2;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init users" author="igor.zhytchenko@gmail.com">
+        <insert tableName="user">
+            <column name="first_name" value="admin">
+            </column>
+            <column name="last_name" value="admin">
+            </column>
+            <column name="email" value="admin">
+            </column>
+            <!--password - admin-->
+            <column name="password" value="$2a$10$.MTwPq5rIgIi592VricLDujlqLzmzD/rUwgrPAAwtNpoKrq298lSe">
+            </column>
+            <column name="active" value="1">
+            </column>
+        </insert>
+        <rollback>
+            DELETE FROM users WHERE login LIKE 'admin' AND password LIKE '$2a$10$.MTwPq5rIgIi592VricLDujlqLzmzD/rUwgrPAAwtNpoKrq298lSe';
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init user_role 1" author="igor.zhytchenko@gmail.com">
+        <insert tableName="user_role">
+            <column name="user_id" valueComputed="(SELECT id FROM user WHERE email = 'admin')">
+            </column>
+            <column name="role_id" value="1">
+            </column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="init user_role 2" author="igor.zhytchenko@gmail.com">
+        <insert tableName="user_role">
+            <column name="user_id" valueComputed="(SELECT id FROM user WHERE email = 'admin')">
+            </column>
+            <column name="role_id" value="2">
+            </column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

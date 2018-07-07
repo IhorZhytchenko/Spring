@@ -1,0 +1,61 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd ">
+
+    <changeSet id="create role table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="role">
+            <column name="id" type="int" >
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="role" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create producer table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="producer">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create product table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="product">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="price" type="DECIMAL(5,2)"/>
+            <column name="producer_id" type="int">
+                <constraints foreignKeyName="fk_product_producer" references="producer(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create user table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="user">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="active" type="int"/>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create user_role table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="user_role">
+            <column name="user_id" type="int" >
+                <constraints nullable="false"  primaryKey="true" foreignKeyName="fk_user_role_user" references="user(id)"/>
+            </column>
+            <column name="role_id" type="int" >
+                <constraints nullable="false"  primaryKey="true" foreignKeyName="fk_user_role_role" references="role(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

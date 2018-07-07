@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Add Producer</title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body class="w3-light-grey">
+
+
+<div th:replace="fragments/menu.html :: top-menu"/>
+
+<div class="w3-container">
+    <br/>
+
+    <div class="w3-card w3-white">
+        <div class="w3-container w3-purple"><h3>Add Producer</h3></div>
+
+        <div class="w3-container">
+            <form th:object="${product}" action="/product/add" method="post">
+
+                <h3>Name:</h3>
+                <input value="" type="text" name="name" class="w3-input w3-border"/>
+                <br/>
+                <h3>Price:</h3>
+                <input value="" type="text" name="price" pattern="\d+\.\d{1,2}" class="w3-input w3-border"/>
+                <br/>
+                <h3>Producer:</h3>
+                <select th:field="*{producer}" style="display: inline-block !important;" class="w3-select w3-block">
+
+                <option th:each="pr : ${producers}"
+                        th:value="${pr.id}"
+                        th:utext="${pr.name}"/>
+                </select>
+                <div style="height: 24px;"></div>
+                <input type="submit" class="w3-button w3-purple  w3-margin-bottom" value="Save"/>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
